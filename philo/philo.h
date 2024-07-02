@@ -21,7 +21,7 @@
 /*	gettimeofday	*/
 #include <sys/time.h>
 
-typedef struct	s_input	t_input
+typedef struct	s_input	t_input;
 
 typedef struct s_fork
 {
@@ -52,7 +52,7 @@ struct	s_input
 	long	sim_end; //when philo dies or all are full
 	t_fork	*forks;
 	t_philo	*philos;
-}	t_input;
+};
 
 void    error_exit(char *str);
 
