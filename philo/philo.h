@@ -21,7 +21,7 @@
 /*	gettimeofday	*/
 #include <sys/time.h>
 
-typedef struct	s_input	t_input;
+typedef struct	s_overseer	t_overseer;
 
 typedef struct s_fork
 {
@@ -38,13 +38,13 @@ typedef struct	s_philo
 	t_fork		*left_fork;
 	t_fork		*right_fork;
 	pthread_t	thread_id; //a philo is a thread
-	t_input		*input;
+	t_overseer		*overseer;
 }	t_philo;
 
-struct	s_input
+struct	s_overseer
 {
 	long	philo_nbr;
-	long	time_to_die;;
+	long	time_to_die;
 	long	time_to_eat;
 	long	time_to_sleep;
 	long	meal_limit;
