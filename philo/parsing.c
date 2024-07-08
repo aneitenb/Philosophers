@@ -6,15 +6,12 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:54:55 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/07/08 10:46:31 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:39:00 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/*  check for actual numbers
-*   check it's not INT_MAX
-*   check timestamps            */
 static const char	*check_valid_input(const char *str)
 {
 	int		len;
@@ -28,9 +25,9 @@ static const char	*check_valid_input(const char *str)
 	if (str[i] == '+')
 		str++;
 	else if (str[i] == '-')
-		error_exit("Use positive number input");
+		error_exit("Error: Use positive number input");
 	if (str[i] < '0' || str[i] > '9' )
-		error_exit("Use only numbers in input");
+		error_exit("Error: Use only numbers as input");
 	number = str;
 	while(str[i] >= '0' && str[i] <= '9')
 	{
@@ -38,7 +35,7 @@ static const char	*check_valid_input(const char *str)
 		i++;
 	}
 	if (len > 10)
-		error_exit("Do not input numbers greater than INT_MAX");
+		error_exit("Error: Do not input numbers greater than INT_MAX");
 	return (number);	
 }
 
@@ -54,7 +51,7 @@ static long	ft_atol(const char *str)
 		str++;
 	}
 	if (num > INT_MAX)
-		error_exit("Do not input numbers greater than INT_MAX");
+		error_exit("Error: Do not input numbers greater than INT_MAX");
 	return (num);
 }
 
@@ -64,9 +61,6 @@ int	parse(t_overseer *data, char **argv)
 	data->time_to_die = ft_atol(argv[2]) * 1000;
 	data->time_to_eat = ft_atol(argv[3]) * 1000;
 	data->time_to_sleep = ft_atol(argv[4]) * 1000;
-	// if (data->time_to_die < 6000 || data->time_to_eat < 6000 ||
-	// 	data->time_to_sleep < 6000)
-	// 	error_exit("Use times greater than 60 milliseconds");
 	if (argv[5])
 		data->meal_limit = ft_atol(argv[5]);
 	else

@@ -29,6 +29,12 @@ typedef struct s_fork
 	int				id;
 }	t_fork;
 
+/* philo[i]->right_fork = malloc(sizeof(t_fork) * data->philo_nbr) 
+if (philo[i] == 0)
+	philo->left_fork = philo[data->philo_nbr]->right_fork;
+else
+	philo[i]->left_fork = philo[i + 1]->right_fork*/
+
 typedef struct	s_philo
 {
 	int			id;
@@ -50,7 +56,7 @@ struct	s_overseer
 	long	meal_limit;
 	long	sim_start;
 	long	sim_end; //when philo dies or all are full
-	t_fork	*forks;
+	//t_fork	*forks;
 	t_philo	*philos;
 };
 
