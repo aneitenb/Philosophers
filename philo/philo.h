@@ -54,9 +54,9 @@ struct	s_overseer
 	long	time_to_eat;
 	long	time_to_sleep;
 	long	meal_limit;
-	long	sim_start;
-	long	sim_end; //when philo dies or all are full
-	//t_fork	*forks;
+	long	start;
+	bool	end_flag; //when philo dies or all are full
+	t_fork	*forks;
 	t_philo	*philos;
 };
 
