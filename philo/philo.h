@@ -37,13 +37,13 @@ else
 
 typedef struct	s_philo
 {
-	int			id;
-	long		meals_count;
-	bool		full;
-	long		last_meal_time;
-	t_fork		*left_fork;
-	t_fork		*right_fork;
-	pthread_t	thread_id; //a philo is a thread
+	int				id;
+	long			meals_consumed;
+	bool			full;
+	long			last_meal_time;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
+	pthread_t		thread_id; //a philo is a thread
 	t_overseer		*overseer;
 }	t_philo;
 
@@ -56,11 +56,11 @@ struct	s_overseer
 	long	meal_limit;
 	long	start;
 	bool	end_flag; //when philo dies or all are full
-	t_fork	*forks;
 	t_philo	*philos;
 };
 
-void    error_exit(char *str);
+int 	error_str(char *str);
+char    *error_null(char *str);
 int		parse(t_overseer *data, char **argv);
 
 #endif
