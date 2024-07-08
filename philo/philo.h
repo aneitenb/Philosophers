@@ -55,5 +55,6 @@ struct	s_overseer
 };
 
 void    error_exit(char *str);
+int		parse(t_overseer *data, char **argv);
 
 #endif
