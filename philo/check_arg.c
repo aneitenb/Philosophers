@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   check_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:54:55 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/07/08 18:18:30 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/07/11 13:04:35 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static const char	*check_valid_input(const char *str)
 
 	i = 0;
 	len = 0;
-	while (str[i] >= 9 && str[i] <= 13 || str[i] == 32)
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
 		str++;
 	if (str[i] == '+')
 		str++;
@@ -57,27 +57,27 @@ static long	ft_atol(const char *str)
 	return (num);
 }
 
-int	parse(t_overseer *data, char **argv)
+int	check_arg(t_master *mind, char **argv)
 {
-	data->philo_nbr = ft_atol(argv[1]);
-	data->time_to_die = ft_atol(argv[2]) * 1000;
-	data->time_to_eat = ft_atol(argv[3]) * 1000;
-	data->time_to_sleep = ft_atol(argv[4]) * 1000;
-	if (data->philo_nbr < 0 || data->time_to_die < 0 || 
-		data->time_to_eat < 0 || data->time_to_sleep < 0)
+	mind->philo_nbr = ft_atol(argv[1]);
+	mind->time_to_die = ft_atol(argv[2]) * 1000;
+	mind->time_to_eat = ft_atol(argv[3]) * 1000;
+	mind->time_to_sleep = ft_atol(argv[4]) * 1000;
+	if (mind->philo_nbr < 0 || mind->time_to_die < 0 || 
+		mind->time_to_eat < 0 || mind->time_to_sleep < 0)
 		return (-1);
 	if (argv[5])
 	{
-		data->meal_limit = ft_atol(argv[5]);
-		if (data->meal_limit < 0)
+		mind->meal_limit = ft_atol(argv[5]);
+		if (mind->meal_limit < 0)
 			return (-1);
 	}
 	else
-		data->meal_limit = -1;
-	if (data->philo_nbr == 0 || data->time_to_die == 0 || data->time_to_eat == 0
-		|| data->time_to_sleep == 0 || data->meal_limit == 0)
+		mind->meal_limit = -1;
+	if (mind->philo_nbr == 0 || mind->time_to_die == 0 || mind->time_to_eat == 0
+		|| mind->time_to_sleep == 0 || mind->meal_limit == 0)
 		return (error_str("Error: Inputs cannot be 0"));
-	printf("philo nbr: %lu\n tt die: %lu\n tt eat: %lu\n tt sleep: %lu\n meals: %d\n",
-		data->philo_nbr, data->time_to_die, data->time_to_eat, data->time_to_sleep, data->meal_limit);
+	printf("philo nbr: %lu\n tt die: %lu\n tt eat: %lu\n tt sleep: %lu\n meals: %lu\n",
+		mind->philo_nbr, mind->time_to_die, mind->time_to_eat, mind->time_to_sleep, mind->meal_limit);
 	return (0);
 }

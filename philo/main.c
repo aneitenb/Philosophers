@@ -6,57 +6,27 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:54:23 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/07/08 17:19:15 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:45:27 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-// static void	init_philos(t_overseer *data)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while(i < data->philo_nbr)
-// 	{
-// 		data->philos[i].id = i;
-// 		data->philos[i].meals_consumed = 0;
-// 		data->philos[i].full = false;
-// 		data->philos[i].last_meal_time = 0;
-// 		data->philos[i].overseer = data;
-		 
-// 	}
-// }   
- 
-// static void	init_data(t_overseer *data) // t_philo *philo
-// {
-//     int	i;
-
-//     i = 0;
-//     data->end_flag = false;
-//     data->philos = malloc(sizeof(t_philo) * data->philo_nbr);
-//     data->forks = malloc(sizeof(t_fork) * data->philo_nbr);
-//     while (i < data->philo_nbr)
-//     {
-//         pthread_mutex_init(&data->forks[i].fork, NULL);
-//         data->forks[i].id = i;
-//         i++;
-//     }
-//     init_philos(data);
-// }
 
 int main(int argc, char **argv)
 {
-    t_overseer data;
+    t_master    mind;
 
-    if (argc == 5 || argc == 6)
-    {
-        if (parse(&data, argv) < 0)
-            return (-1);
-        // init_data(&data);
-        // philosophize(&data);
-        // cleanup(&data);
-    }
-    else
-        return (error_str("Incorrect number of inputs"));
+    if (argc != 5 && argc != 6)
+        return (handle_error(ARG_COUNT, &mind));
+    if (check_arg(&mind, argv) != 0)
+        return (-1);
+        // return (handle_error(INVALID_ARG, &mind));
+    if (init_data(&mind) != 0)
+        return (handle_error(INIT_ERROR, &mind));
+    if (init_philo(&mind) != 0)
+        return (handle_error(PHILOS_ERROR, &mind));
+    if (roulette(&mind) != 0)
+        return (handle_error(PHILOS_ERROR, &mind));
+    kill(&mind);
     return (0);
 }
