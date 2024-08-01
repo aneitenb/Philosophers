@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_arg.c                                        :+:      :+:    :+:   */
+/*   philo_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:54:55 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/07/11 13:04:35 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/01 13:44:28 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,24 +60,24 @@ static long	ft_atol(const char *str)
 int	check_arg(t_master *mind, char **argv)
 {
 	mind->philo_nbr = ft_atol(argv[1]);
-	mind->time_to_die = ft_atol(argv[2]) * 1000;
-	mind->time_to_eat = ft_atol(argv[3]) * 1000;
-	mind->time_to_sleep = ft_atol(argv[4]) * 1000;
-	if (mind->philo_nbr < 0 || mind->time_to_die < 0 || 
-		mind->time_to_eat < 0 || mind->time_to_sleep < 0)
-		return (-1);
+	mind->tt_die = ft_atol(argv[2]) * 1000;
+	mind->tt_eat = ft_atol(argv[3]) * 1000;
+	mind->tt_sleep = ft_atol(argv[4]) * 1000;
+	if (mind->philo_nbr < 0 || mind->tt_die < 0 || 
+		mind->tt_eat < 0 || mind->tt_sleep < 0)
+		return (INVALID_ARG);
 	if (argv[5])
 	{
 		mind->meal_limit = ft_atol(argv[5]);
 		if (mind->meal_limit < 0)
-			return (-1);
+			return (INVALID_ARG);
 	}
 	else
 		mind->meal_limit = -1;
-	if (mind->philo_nbr == 0 || mind->time_to_die == 0 || mind->time_to_eat == 0
-		|| mind->time_to_sleep == 0 || mind->meal_limit == 0)
+	if (mind->philo_nbr == 0 || mind->tt_die == 0 || mind->tt_eat == 0
+		|| mind->tt_sleep == 0 || mind->meal_limit == 0)
 		return (error_str("Error: Inputs cannot be 0"));
 	printf("philo nbr: %lu\n tt die: %lu\n tt eat: %lu\n tt sleep: %lu\n meals: %lu\n",
-		mind->philo_nbr, mind->time_to_die, mind->time_to_eat, mind->time_to_sleep, mind->meal_limit);
+		mind->philo_nbr, mind->tt_die, mind->tt_eat, mind->tt_sleep, mind->meal_limit); //
 	return (0);
 }

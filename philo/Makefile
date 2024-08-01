@@ -5,8 +5,11 @@ CFLAGS := -Wextra -Wall -Werror -pthread
 HEADERS	= -I ./include
 
 SRCS	= 	main.c \
-			check_arg.c \
-			error_handling.c 
+			philo_check.c \
+			error_handling.c \
+			philo_init.c \
+			philo_roulette.c \
+			philo_utils.c  
 
 OBJS	= ${SRCS:.c=.o}
 

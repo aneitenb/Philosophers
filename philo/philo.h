@@ -27,7 +27,7 @@
 # define THINKING			"is thinking"
 # define DIED				"died"
 # define ARG_COUNT			200
-# define INVALID_ARG		201//
+# define INVALID_ARG		201
 # define INIT_ERROR			202
 # define PHILOS_ERROR		203
 # define MALLOC_FAIL		204
@@ -35,32 +35,27 @@
 
 typedef struct	s_master	t_master;
 
-/* philo[i]->right_fork = malloc(sizeof(t_fork) * data->philo_nbr) 
-if (philo[i] == 0)
-	philo->left_fork = philo[data->philo_nbr]->right_fork;
-else
-	philo[i]->left_fork = philo[i + 1]->right_fork*/
-
 typedef struct	s_philo
 {
 	int				id;
 	long			meals_consumed;
 	bool			full;
 	long			last_meal_time;
-	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_t		thread_id; //a philo is a thread
-	t_master			*master;
+	t_master		*mind;
 }	t_philo;
 
 struct	s_master
 {
 	long			philo_nbr;
-	long			time_to_die;
-	long			time_to_eat;
-	long			time_to_sleep;
+	long			tt_die;
+	long			tt_eat;
+	long			tt_sleep;
 	long			meal_limit;
-	long			start;
+	long			full_philos;
+	long			start_time;
 	pthread_mutex_t	m_print;
 	bool			end_flag; //when philo dies or all are full
 	t_philo			*philo;
@@ -72,5 +67,11 @@ int		check_arg(t_master *data, char **argv);
 int 	handle_error(int errno, t_master *mind);
 int 	init_data(t_master *mind);
 int 	init_philo(t_master *mind);
+void 	*philo_roulette(void *ptr);
+void	print_message(char *str, t_philo *philo);
+void	ft_usleep(unsigned int time);
+int		get_time(void);
+int		join_threads(t_master *mind);
+int 	kill(t_master *mind);
 
 #endif
