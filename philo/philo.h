@@ -39,11 +39,11 @@ typedef struct	s_philo
 {
 	int				id;
 	long			meals_consumed;
-	bool			full;
 	long			last_meal_time;
+	bool			full;
 	pthread_mutex_t	left_fork;
 	pthread_mutex_t	*right_fork;
-	pthread_t		thread_id; //a philo is a thread
+	pthread_t		thread; //a philo is a thread
 	t_master		*mind;
 }	t_philo;
 
@@ -56,8 +56,8 @@ struct	s_master
 	long			meal_limit;
 	long			full_philos;
 	long			start_time;
-	pthread_mutex_t	m_print;
 	bool			end_flag; //when philo dies or all are full
+	pthread_mutex_t	m_print;
 	t_philo			*philo;
 };
 
@@ -69,7 +69,7 @@ int 	init_data(t_master *mind);
 int 	init_philo(t_master *mind);
 void 	*philo_roulette(void *ptr);
 void	print_message(char *str, t_philo *philo);
-void	ft_usleep(unsigned int time);
+void	ft_usleep(unsigned int time, t_philo *philo);
 int		get_time(void);
 int		join_threads(t_master *mind);
 int 	kill(t_master *mind);

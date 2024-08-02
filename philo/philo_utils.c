@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:33:04 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/01 13:49:43 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:36:37 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,18 @@ int	get_time(void)
 
 	if (gettimeofday(&time, NULL) != 0)
 	{
-		write(2, "Error in get time of day", 24);
+		printf("Error in get time of day\n");
 		return (1);
 	}
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void	ft_usleep(unsigned int time)
+void	ft_usleep(unsigned int time, t_philo *philo)
 {
 	unsigned int	start;
 
 	start = get_time();
-	while (get_time() - start < time)
+	while (get_time() - start < time && philo->mind->end_flag == false)
 		usleep(500);
 }
 
@@ -71,13 +71,11 @@ int	join_threads(t_master *mind)
 	int	i;
 
 	i = 0;
-	printf("philo nbr: %ld", mind->philo_nbr);
 	while (i < mind->philo_nbr)
 	{
-		if (pthread_join(mind->philo[i].thread_id, NULL) != 0)
+		if (pthread_join(mind->philo[i].thread, NULL) != 0)
 			return (EXIT_FAILURE);
 		i++;
-		printf("i: %d", i);
 	}
 	return (0);
 }
