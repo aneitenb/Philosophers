@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_roulette.c                                   :+:      :+:    :+:   */
+/*   roulette.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 08:46:46 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/02 12:38:49 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/04 15:48:02 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ void *philo_roulette(void *ptr)
     t_philo		*philo;
 
 	philo = (t_philo *)ptr;
+	pthread_mutex_lock(&philo->mind->m_roulette);
+	pthread_mutex_unlock(&philo->mind->m_roulette);
+	printf("here\n");
 	if (philo->id % 2 == 0)
 		ft_usleep(philo->mind->tt_eat, philo);
 	while (philo->mind->end_flag == false)

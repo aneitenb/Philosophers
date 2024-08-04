@@ -58,6 +58,7 @@ struct	s_master
 	long			start_time;
 	bool			end_flag; //when philo dies or all are full
 	pthread_mutex_t	m_print;
+	pthread_mutex_t	m_roulette;
 	t_philo			*philo;
 };
 
