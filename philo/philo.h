@@ -9,6 +9,7 @@
 
 /*	write, usleep	*/
 #include <unistd.h>
+
 #include <stdbool.h>
 
 /*	mutex (init, destroy, lock, unlock)	*
@@ -39,7 +40,7 @@ typedef struct	s_philo
 {
 	int				id;
 	long			meals_consumed;
-	long			last_meal_time;
+	size_t			last_meal_time;
 	bool			full;
 	pthread_mutex_t	left_fork;
 	pthread_mutex_t	*right_fork;
@@ -50,7 +51,7 @@ typedef struct	s_philo
 struct	s_master
 {
 	long			philo_nbr;
-	long			tt_die;
+	size_t			tt_die;
 	long			tt_eat;
 	long			tt_sleep;
 	long			meal_limit;
@@ -58,6 +59,7 @@ struct	s_master
 	long			start_time;
 	bool			end_flag; //when philo dies or all are full
 	pthread_mutex_t	m_print;
+	pthread_mutex_t	m_end;
 	pthread_mutex_t	m_roulette;
 	t_philo			*philo;
 };
@@ -71,8 +73,9 @@ int 	init_philo(t_master *mind);
 void 	*philo_roulette(void *ptr);
 void	print_message(char *str, t_philo *philo);
 void	ft_usleep(unsigned int time, t_philo *philo);
-int		get_time(void);
+size_t		get_time(void);
 int		join_threads(t_master *mind);
 int 	kill(t_master *mind);
+void	monitoring(t_master *mind);
 
 #endif

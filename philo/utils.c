@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:33:04 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/04 15:36:20 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:28:46 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_message(char *str, t_philo *philo)
 	pthread_mutex_unlock(&philo->mind->m_print);
 }
 
-int	get_time(void)
+size_t	get_time(void)
 {
 	struct timeval	time;
 
@@ -39,9 +39,9 @@ int	get_time(void)
 void	ft_usleep(unsigned int time, t_philo *philo)
 {
 	unsigned int	start;
-
+	
 	start = get_time();
-	while (get_time() - start < time && philo->mind->end_flag == false)
+	while (((get_time() - start) < time) && philo->mind->end_flag == false)
 		usleep(500);
 }
 
@@ -67,7 +67,6 @@ int kill(t_master *mind)
 
 int	join_threads(t_master *mind)
 {
-	printf("2\n");
 	int	i;
 
 	i = 0;
@@ -77,6 +76,5 @@ int	join_threads(t_master *mind)
 			return (EXIT_FAILURE);
 		i++;
 	}
-	printf("2.5\n");
 	return (0);
 }

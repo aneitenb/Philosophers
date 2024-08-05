@@ -1,6 +1,6 @@
 NAME := philo
 CC := cc
-CFLAGS := -Wextra -Wall -Werror -pthread
+CFLAGS := -Wextra -Wall -Werror -pthread -fsanitize=address -g
 
 HEADERS	= -I ./include
 
@@ -9,7 +9,8 @@ SRCS	= 	main.c \
 			error_handling.c \
 			init.c \
 			roulette.c \
-			utils.c  
+			utils.c  \
+			monitoring.c
 
 OBJS	= ${SRCS:.c=.o}
 
