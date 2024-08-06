@@ -73,9 +73,10 @@ int 	init_philo(t_master *mind);
 void 	*philo_roulette(void *ptr);
 void	print_message(char *str, t_philo *philo);
 void	ft_usleep(unsigned int time, t_philo *philo);
-size_t		get_time(void);
+size_t	get_time(void);
 int		join_threads(t_master *mind);
 int 	kill(t_master *mind);
 void	monitoring(t_master *mind);
+int		create_threads(t_master *mind);
 
 #endif

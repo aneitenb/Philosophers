@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:33:04 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/05 17:28:46 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:25:38 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,14 @@ void	print_message(char *str, t_philo *philo)
 	if (philo->mind->end_flag == true)
 		return ;
 	current_time = get_time() - philo->mind->start_time;
+	printf("start time: %ld\n", philo->mind->start_time);
+	printf("current time: %u\n", current_time);
 	pthread_mutex_lock(&philo->mind->m_print);
+	if (philo->mind->end_flag == true)
+	{
+		pthread_mutex_unlock(&philo->mind->m_print);
+		return ;
+	}
 	printf("%u %d %s\n", current_time, philo->id + 1, str);
 	pthread_mutex_unlock(&philo->mind->m_print);
 }
