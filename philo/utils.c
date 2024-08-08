@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:33:04 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/06 14:25:38 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:37:43 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ void	print_message(char *str, t_philo *philo)
 
 	if (philo->mind->end_flag == true)
 		return ;
-	current_time = get_time() - philo->mind->start_time;
-	printf("start time: %ld\n", philo->mind->start_time);
-	printf("current time: %u\n", current_time);
 	pthread_mutex_lock(&philo->mind->m_print);
+	current_time = get_time() - philo->start_time;
 	if (philo->mind->end_flag == true)
 	{
 		pthread_mutex_unlock(&philo->mind->m_print);
@@ -37,7 +35,7 @@ size_t	get_time(void)
 
 	if (gettimeofday(&time, NULL) != 0)
 	{
-		printf("Error in get time of day\n");
+		printf("Error in gettimeofday\n");
 		return (1);
 	}
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
@@ -45,10 +43,12 @@ size_t	get_time(void)
 
 void	ft_usleep(unsigned int time, t_philo *philo)
 {
-	unsigned int	start;
+	size_t	start;
+	size_t	dead;
 	
 	start = get_time();
-	while (((get_time() - start) < time) && philo->mind->end_flag == false)
+	dead = philo->last_meal_time + philo->mind->tt_die;
+	while (((get_time() - start) < time) && get_time() < dead)
 		usleep(500);
 }
 
@@ -69,19 +69,5 @@ int kill(t_master *mind)
 	pthread_mutex_destroy(&mind->m_print);
 	free(mind->philo);
 	mind->philo = NULL;
-	return (0);
-}
-
-int	join_threads(t_master *mind)
-{
-	int	i;
-
-	i = 0;
-	while (i < mind->philo_nbr)
-	{
-		if (pthread_join(mind->philo[i].thread, NULL) != 0)
-			return (EXIT_FAILURE);
-		i++;
-	}
 	return (0);
 }

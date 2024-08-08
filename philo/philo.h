@@ -41,6 +41,7 @@ typedef struct	s_philo
 	int				id;
 	long			meals_consumed;
 	size_t			last_meal_time;
+	size_t			start_time; //
 	bool			full;
 	pthread_mutex_t	left_fork;
 	pthread_mutex_t	*right_fork;
@@ -56,10 +57,11 @@ struct	s_master
 	long			tt_sleep;
 	long			meal_limit;
 	long			full_philos;
-	long			start_time;
+	// size_t			start_time;
 	bool			end_flag; //when philo dies or all are full
 	pthread_mutex_t	m_print;
 	pthread_mutex_t	m_end;
+	pthread_mutex_t	m_meal;
 	pthread_mutex_t	m_roulette;
 	t_philo			*philo;
 };
@@ -74,7 +76,6 @@ void 	*philo_roulette(void *ptr);
 void	print_message(char *str, t_philo *philo);
 void	ft_usleep(unsigned int time, t_philo *philo);
 size_t	get_time(void);
-int		join_threads(t_master *mind);
 int 	kill(t_master *mind);
 void	monitoring(t_master *mind);
 int		create_threads(t_master *mind);

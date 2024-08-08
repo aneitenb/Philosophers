@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:54:55 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/06 14:01:00 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:16:52 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 
 int init_philo(t_master *mind)
 {
-	int i;
-
+	int 	i;
+	size_t	time;
+	
 	i = 0;
+	time = get_time();
 	while (i < mind->philo_nbr)
 	{
 		mind->philo[i].mind = mind;
 		mind->philo[i].id = i;
 		mind->philo[i].meals_consumed = 0;
+		mind->philo[i].start_time = time;
 		mind->philo[i].last_meal_time = 0;
 		mind->philo[i].full = false;
         if (pthread_mutex_init(&mind->philo[i].left_fork, NULL) != 0)
@@ -43,6 +46,8 @@ int init_data(t_master *mind)
 	if (pthread_mutex_init(&mind->m_end, NULL))
 		return (MUTEX_INIT_ERROR);
 	if (pthread_mutex_init(&mind->m_roulette, NULL))
+		return (MUTEX_INIT_ERROR);
+	if (pthread_mutex_init(&mind->m_meal, NULL))
 		return (MUTEX_INIT_ERROR);
 	mind->philo = malloc(sizeof(t_philo) * mind->philo_nbr);
 	if (mind->philo == NULL)

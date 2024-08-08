@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 08:46:46 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/06 14:33:49 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:33:01 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,24 @@ static int	eat(t_philo *philo)
 {
 	if (philo->mind->end_flag == true)
 		return (1);
+	if (philo->mind->philo_nbr == 1)
+	{
+		ft_usleep(philo->mind->tt_die, philo);
+		pthread_mutex_lock(&philo->mind->m_meal);
+		philo->last_meal_time = get_time();
+		pthread_mutex_unlock(&philo->mind->m_meal);
+		return (1);
+	}
 	pthread_mutex_lock(philo->right_fork);
 	print_message(TAKES_FORK, philo);
 	pthread_mutex_lock(&philo->left_fork);
 	print_message(TAKES_FORK, philo);
+	pthread_mutex_lock(&philo->mind->m_meal);
+	philo->last_meal_time = get_time();
+	pthread_mutex_unlock(&philo->mind->m_meal);
 	print_message(EATING, philo);
-	philo->last_meal_time = get_time() - philo->mind->start_time - philo->last_meal_time;
-	printf("last meal time in philo %d : %lu\n", philo->id + 1, philo->last_meal_time);
-	philo->meals_consumed++;
 	ft_usleep(philo->mind->tt_eat, philo);
+	philo->meals_consumed++;
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(&philo->left_fork);
 	return (0);
@@ -54,16 +63,12 @@ void *philo_roulette(void *ptr)
 	}
 	while (philo->mind->end_flag == false)
 	{
-		if (philo->mind->philo_nbr == 1)
-		{
-			print_message(TAKES_FORK, philo);
-			ft_usleep(philo->mind->tt_die, philo);
-			break ;
-		}
+		if (philo->mind->end_flag == true)
+			return (NULL);
 		if (eat(philo) != 0)
-			break ;
+			return (NULL);
 		if (philo_sleep_think(philo) != 0)
-			break ;
+			return (NULL);
 	}
 	return (NULL);
 }
