@@ -6,11 +6,33 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 08:46:46 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/08 14:33:01 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:57:44 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static int	death_or_full(t_philo *philo)
+{
+	if (philo->mind->meal_limit != -1)
+	{
+		pthread_mutex_lock(&philo->mind->m_meal);
+		if (philo->mind->full_philos == philo->mind->philo_nbr)
+		{
+			pthread_mutex_unlock(&philo->mind->m_meal);
+			return (1);
+		}
+		pthread_mutex_unlock(&philo->mind->m_meal);
+	}
+	pthread_mutex_lock(&philo->mind->m_end);
+	if (philo->mind->end_flag == true)
+	{
+		pthread_mutex_unlock(&philo->mind->m_end);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->mind->m_end);
+	return (0);
+}
 
 static int	eat(t_philo *philo)
 {
@@ -41,8 +63,6 @@ static int	eat(t_philo *philo)
 
 static int	philo_sleep_think(t_philo *philo)
 {
-	if (philo->mind->end_flag == true)
-		return (1);
 	print_message(SLEEPING, philo);
 	ft_usleep(philo->mind->tt_sleep, philo);
 	print_message(THINKING, philo);
@@ -61,10 +81,8 @@ void *philo_roulette(void *ptr)
 		print_message(THINKING, philo);
 		ft_usleep(philo->mind->tt_eat, philo);
 	}
-	while (philo->mind->end_flag == false)
+	while (death_or_full(philo) == 0)
 	{
-		if (philo->mind->end_flag == true)
-			return (NULL);
 		if (eat(philo) != 0)
 			return (NULL);
 		if (philo_sleep_think(philo) != 0)
