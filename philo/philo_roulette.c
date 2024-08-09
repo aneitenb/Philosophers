@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 08:46:46 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/09 15:28:47 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/09 16:06:58 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,6 @@ int	death_or_full(t_philo *philo)
 	return (0);
 }
 
-// static void	dine_time(t_philo *philo)
-// {
-// 	print_message(EATING, philo);
-// 	ft_usleep(philo->mind->tt_eat, philo);
-// 	pthread_mutex_lock(&philo->mind->m_meal);
-// 	philo->last_meal_time = get_time();
-// 	philo->meals_consumed++;
-// 	pthread_mutex_unlock(&philo->mind->m_meal);
-// 	pthread_mutex_unlock(&philo->left_fork);
-// 	pthread_mutex_unlock(philo->right_fork);
-// }
-
 static void	singles_fate(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->left_fork);
@@ -59,7 +47,6 @@ static void	singles_fate(t_philo *philo)
 
 static int	eat(t_philo *philo)
 {
-	printf("entering eat\n");
 	pthread_mutex_lock(&philo->left_fork);
 	print_message(TAKES_FORK, philo);
 	pthread_mutex_lock(philo->right_fork);
@@ -72,56 +59,13 @@ static int	eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->mind->m_meal);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(&philo->left_fork);
-	printf("EXITING eat\n");
 	return (0);
 }
 
-	// if (death_or_full(philo))
-	// 	return (1);
-	// else
-	// {
-	// 	pthread_mutex_lock(&philo->left_fork);
-	// 	print_message(TAKES_FORK, philo);
-	// }
-	// if (death_or_full(philo))
-	// {
-	// 	printf("WE DIED OR FULL\n");
-	// 	return (1);
-	// }
-	// else
-	// {
-	// 	printf("PHILO %d GONNA PICK UP LEFT\n", philo->id + 1);
-	// 	pthread_mutex_lock(philo->right_fork);
-	// 	print_message(TAKES_FORK, philo);
-	// }
-	// if (death_or_full(philo))
-	// {
-	// 	pthread_mutex_unlock(&philo->left_fork);
-	// 	pthread_mutex_unlock(philo->right_fork);
-	// 	return (1);
-	// }
-	// else
-	// 	dine_time(philo);
-	// return (0);
-// }
-
-//	in philo_roulette:
-	// while (1)
-	// {
-	// 	if (eat(philo) != 0)
-	// 		return (NULL);
-	// 	if (philo_sleep(philo) != 0)
-	// 		return (NULL);
-	// 	print_message(THINKING, philo);
-	// }
-	
-
 static int	philo_sleep(t_philo *philo)
 {
-	printf("entering sleep\n");
 	print_message(SLEEPING, philo);
 	ft_usleep(philo->mind->tt_sleep, philo);
-	printf("EXITING SLEEP\n");
 	return (0);
 }
 

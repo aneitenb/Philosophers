@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:54:55 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/09 15:37:49 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/09 16:02:52 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,9 @@ static long	ft_atol(const char *str)
 int	check_arg(t_master *mind, char **argv)
 {
 	mind->philo_nbr = ft_atol(argv[1]);
-	mind->tt_die = ft_atol(argv[2]) * 1000;
-	mind->tt_eat = ft_atol(argv[3]) * 1000;
-	mind->tt_sleep = ft_atol(argv[4]) * 1000;
+	mind->tt_die = ft_atol(argv[2]);
+	mind->tt_eat = ft_atol(argv[3]);
+	mind->tt_sleep = ft_atol(argv[4]);
 	if (mind->philo_nbr < 0 || mind->tt_die < 0 || 
 		mind->tt_eat < 0 || mind->tt_sleep < 0)
 		return (INVALID_ARG);
