@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:33:04 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/08 14:37:43 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:40:27 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ void	print_message(char *str, t_philo *philo)
 {
 	unsigned int	current_time;
 
-	if (philo->mind->end_flag == true)
-		return ;
-	pthread_mutex_lock(&philo->mind->m_print);
-	current_time = get_time() - philo->start_time;
+	pthread_mutex_lock(&philo->mind->m_end);
 	if (philo->mind->end_flag == true)
 	{
-		pthread_mutex_unlock(&philo->mind->m_print);
+		pthread_mutex_unlock(&philo->mind->m_end);	
 		return ;
 	}
+	pthread_mutex_unlock(&philo->mind->m_end);
+	pthread_mutex_lock(&philo->mind->m_print);
+	current_time = get_time() - philo->start_time;
 	printf("%u %d %s\n", current_time, philo->id + 1, str);
 	pthread_mutex_unlock(&philo->mind->m_print);
 }
@@ -47,7 +47,9 @@ void	ft_usleep(unsigned int time, t_philo *philo)
 	size_t	dead;
 	
 	start = get_time();
+	// pthread_mutex_lock(&philo->mind->m_meal);
 	dead = philo->last_meal_time + philo->mind->tt_die;
+	// pthread_mutex_unlock(&philo->mind->m_meal);
 	while (((get_time() - start) < time) && get_time() < dead)
 		usleep(500);
 }

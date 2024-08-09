@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:54:23 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/08 14:37:33 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/09 13:05:07 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int main(int argc, char **argv)
         return (handle_error(PHILOS_ERROR, &mind));
     if (create_threads(&mind) != 0)
         return (handle_error(PHILOS_ERROR, &mind));
+    printf("Before the END!!!!!\n");
     kill(&mind);
     return (0);
 }

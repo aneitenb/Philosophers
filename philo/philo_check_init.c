@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_init.c                                       :+:      :+:    :+:   */
+/*   philo_check_init.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:54:55 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/08 14:16:52 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:37:49 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int init_philo(t_master *mind)
 		mind->philo[i].id = i;
 		mind->philo[i].meals_consumed = 0;
 		mind->philo[i].start_time = time;
-		mind->philo[i].last_meal_time = 0;
+		mind->philo[i].last_meal_time = time;
 		mind->philo[i].full = false;
         if (pthread_mutex_init(&mind->philo[i].left_fork, NULL) != 0)
 			return (MUTEX_INIT_ERROR);
@@ -120,7 +120,7 @@ int	check_arg(t_master *mind, char **argv)
 	if (mind->philo_nbr == 0 || mind->tt_die == 0 || mind->tt_eat == 0
 		|| mind->tt_sleep == 0 || mind->meal_limit == 0)
 		return (error_str("Error: Inputs cannot be 0"));
-	printf("philo nbr: %lu\n tt die: %lu\n tt eat: %lu\n tt sleep: %lu\n meals: %lu\n",
-		mind->philo_nbr, mind->tt_die, mind->tt_eat, mind->tt_sleep, mind->meal_limit); //
+	// printf("philo nbr: %lu\n tt die: %lu\n tt eat: %lu\n tt sleep: %lu\n meals: %lu\n",
+	// 	mind->philo_nbr, mind->tt_die, mind->tt_eat, mind->tt_sleep, mind->meal_limit); //
 	return (0);
 }

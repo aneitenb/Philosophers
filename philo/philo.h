@@ -79,5 +79,6 @@ size_t	get_time(void);
 int 	kill(t_master *mind);
 void	monitoring(t_master *mind);
 int		create_threads(t_master *mind);
+int		death_or_full(t_philo *philo);
 
 #endif
