@@ -6,17 +6,17 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:54:55 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/09 16:02:52 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/11 15:48:42 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int init_philo(t_master *mind)
+int	init_philo(t_master *mind)
 {
-	int 	i;
+	int		i;
 	size_t	time;
-	
+
 	i = 0;
 	time = get_time();
 	while (i < mind->philo_nbr)
@@ -27,19 +27,20 @@ int init_philo(t_master *mind)
 		mind->philo[i].start_time = time;
 		mind->philo[i].last_meal_time = time;
 		mind->philo[i].full = false;
-        if (pthread_mutex_init(&mind->philo[i].left_fork, NULL) != 0)
+		if (pthread_mutex_init(&mind->philo[i].left_fork, NULL) != 0)
 			return (MUTEX_INIT_ERROR);
 		mind->philo[i].right_fork = NULL;
-        if (mind->philo_nbr > 1)
-			mind->philo[i].right_fork = &mind->philo[(i + 1) % mind->philo_nbr].left_fork;
-        i++;
-    }
-    return (0);
+		if (mind->philo_nbr > 1)
+			mind->philo[i].right_fork = &mind->philo[(i + 1) % \
+			mind->philo_nbr].left_fork;
+		i++;
+	}
+	return (0);
 }
 
-int init_data(t_master *mind)
+int	init_data(t_master *mind)
 {
-    mind->full_philos = 0;
+	mind->full_philos = 0;
 	mind->end_flag = false;
 	if (pthread_mutex_init(&mind->m_print, NULL))
 		return (MUTEX_INIT_ERROR);
@@ -57,8 +58,8 @@ int init_data(t_master *mind)
 
 static const char	*check_valid_input(const char *str)
 {
-	int		len;
-	int		i;
+	int			len;
+	int			i;
 	const char	*number;
 
 	i = 0;
@@ -68,24 +69,24 @@ static const char	*check_valid_input(const char *str)
 	if (str[i] == '+')
 		str++;
 	else if (str[i] == '-')
-		return(error_null("Error: Use positive number input"));
+		return (error_null("Error: Use positive number input"));
 	if (str[i] < '0' || str[i] > '9' )
-		return(error_null("Error: Use only numbers as input"));
+		return (error_null("Error: Use only numbers as input"));
 	number = str;
-	while(str[i] >= '0' && str[i] <= '9')
+	while (str[i] >= '0' && str[i] <= '9')
 	{
 		len++;
 		i++;
 	}
 	if (len > 10)
-		return(error_null("Error: Do not input numbers greater than INT_MAX"));
-	return (number);	
+		return (error_null("Error: Do not input numbers greater than INT_MAX"));
+	return (number);
 }
 
 static long	ft_atol(const char *str)
 {
 	long	num;
-	
+
 	num = 0;
 	str = check_valid_input(str);
 	if (str == NULL)
@@ -106,8 +107,8 @@ int	check_arg(t_master *mind, char **argv)
 	mind->tt_die = ft_atol(argv[2]);
 	mind->tt_eat = ft_atol(argv[3]);
 	mind->tt_sleep = ft_atol(argv[4]);
-	if (mind->philo_nbr < 0 || mind->tt_die < 0 || 
-		mind->tt_eat < 0 || mind->tt_sleep < 0)
+	if ((int)mind->tt_die < 0 || (int)mind->philo_nbr < 0
+		|| (int)mind->tt_eat < 0 || (int)mind->tt_sleep < 0)
 		return (INVALID_ARG);
 	if (argv[5])
 	{
@@ -120,7 +121,5 @@ int	check_arg(t_master *mind, char **argv)
 	if (mind->philo_nbr == 0 || mind->tt_die == 0 || mind->tt_eat == 0
 		|| mind->tt_sleep == 0 || mind->meal_limit == 0)
 		return (error_str("Error: Inputs cannot be 0"));
-	// printf("philo nbr: %lu\n tt die: %lu\n tt eat: %lu\n tt sleep: %lu\n meals: %lu\n",
-	// 	mind->philo_nbr, mind->tt_die, mind->tt_eat, mind->tt_sleep, mind->meal_limit); //
 	return (0);
 }

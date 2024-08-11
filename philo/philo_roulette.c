@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 08:46:46 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/09 16:06:58 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/11 15:51:57 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ static int	philo_sleep(t_philo *philo)
 	return (0);
 }
 
-void *philo_roulette(void *ptr)
+void	*philo_roulette(void *ptr)
 {
-    t_philo		*philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)ptr;
 	pthread_mutex_lock(&philo->mind->m_roulette);

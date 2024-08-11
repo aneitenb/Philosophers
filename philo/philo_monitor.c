@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 14:47:59 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/09 14:48:50 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/11 15:51:09 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	monitor_full_philos(t_master *mind, int i)
 static int	monitor_death(t_master *mind, int i)
 {
 	size_t	time;
-	
+
 	pthread_mutex_lock(&mind->m_meal);
 	time = get_time() - mind->philo[i].last_meal_time;
 	if (time >= mind->tt_die)

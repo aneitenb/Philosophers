@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:53:59 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/09 15:34:04 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/11 15:51:25 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 int	create_threads(t_master *mind)
 {
 	int	i;
-	
+
 	i = 0;
 	pthread_mutex_lock(&mind->m_roulette);
-	while(i < mind->philo_nbr)
+	while (i < mind->philo_nbr)
 	{
 		if (pthread_create(&mind->philo[i].thread, NULL, \
 			&philo_roulette, &mind->philo[i]) != 0)
