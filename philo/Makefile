@@ -1,6 +1,6 @@
 NAME := philo
 CC := cc
-CFLAGS := -Wextra -Wall -Werror -pthread -fsanitize=address -g
+CFLAGS := -Wextra -Wall -Werror
 
 HEADERS	= -I ./include
 

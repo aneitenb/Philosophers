@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:39:53 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/11 15:42:32 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:48:48 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,9 @@ typedef struct s_philo
 	int				id;
 	long			meals_consumed;
 	size_t			last_meal_time;
-	size_t			start_time;
 	bool			full;
-	pthread_mutex_t	left_fork;
-	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	right_fork;
 	pthread_t		thread;
 	t_master		*mind;
 }	t_philo;
@@ -64,11 +63,12 @@ typedef struct s_philo
 struct	s_master
 {
 	long			philo_nbr;
-	size_t			tt_die;
+	long			tt_die;
 	long			tt_eat;
 	long			tt_sleep;
 	long			meal_limit;
 	long			full_philos;
+	size_t			start_time;
 	bool			end_flag;
 	pthread_mutex_t	m_print;
 	pthread_mutex_t	m_end;

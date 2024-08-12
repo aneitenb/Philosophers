@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 14:47:59 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/11 15:51:09 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:05:02 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	philo_has_died(t_philo *philo, char *str)
 	unsigned int	time;
 
 	pthread_mutex_lock(&philo->mind->m_print);
-	time = get_time() - philo->start_time;
+	time = get_time() - philo->mind->start_time;
 	printf("%u %d %s\n", time, philo->id + 1, str);
 	pthread_mutex_unlock(&philo->mind->m_print);
 }
@@ -57,7 +57,7 @@ static int	monitor_death(t_master *mind, int i)
 
 	pthread_mutex_lock(&mind->m_meal);
 	time = get_time() - mind->philo[i].last_meal_time;
-	if (time >= mind->tt_die)
+	if (time >= (size_t)mind->tt_die)
 	{
 		pthread_mutex_lock(&mind->m_end);
 		mind->end_flag = true;
@@ -76,6 +76,7 @@ void	monitoring(t_master *mind)
 
 	while (1)
 	{
+		usleep(100);
 		i = 0;
 		while (i < mind->philo_nbr)
 		{

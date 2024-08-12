@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:54:55 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/11 15:48:42 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:49:02 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,14 @@ int	init_philo(t_master *mind)
 		mind->philo[i].mind = mind;
 		mind->philo[i].id = i;
 		mind->philo[i].meals_consumed = 0;
-		mind->philo[i].start_time = time;
 		mind->philo[i].last_meal_time = time;
 		mind->philo[i].full = false;
-		if (pthread_mutex_init(&mind->philo[i].left_fork, NULL) != 0)
+		if (pthread_mutex_init(&mind->philo[i].right_fork, NULL) != 0)
 			return (MUTEX_INIT_ERROR);
-		mind->philo[i].right_fork = NULL;
+		mind->philo[i].left_fork = NULL;
 		if (mind->philo_nbr > 1)
-			mind->philo[i].right_fork = &mind->philo[(i + 1) % \
-			mind->philo_nbr].left_fork;
+			mind->philo[i].left_fork = &mind->philo[(i + 1) % \
+			mind->philo_nbr].right_fork;
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:33:04 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/11 15:44:35 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:33:12 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_message(char *str, t_philo *philo)
 	}
 	pthread_mutex_unlock(&philo->mind->m_end);
 	pthread_mutex_lock(&philo->mind->m_print);
-	current_time = get_time() - philo->start_time;
+	current_time = get_time() - philo->mind->start_time;
 	printf("%u %d %s\n", current_time, philo->id + 1, str);
 	pthread_mutex_unlock(&philo->mind->m_print);
 }
@@ -63,12 +63,15 @@ int	kill(t_master *mind)
 		return (0);
 	while (i < mind->philo_nbr)
 	{
-		pthread_mutex_destroy(&mind->philo[i].left_fork);
-		mind->philo[i].right_fork = NULL;
+		pthread_mutex_destroy(&mind->philo[i].right_fork);
+		mind->philo[i].left_fork = NULL;
 		mind->philo[i].mind = NULL;
 		i++;
 	}
 	pthread_mutex_destroy(&mind->m_print);
+	pthread_mutex_destroy(&mind->m_end);
+	pthread_mutex_destroy(&mind->m_meal);
+	pthread_mutex_destroy(&mind->m_roulette);
 	free(mind->philo);
 	mind->philo = NULL;
 	return (0);

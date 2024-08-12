@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 08:46:46 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/11 15:51:57 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/12 14:52:03 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,20 @@ int	death_or_full(t_philo *philo)
 
 static void	singles_fate(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->left_fork);
+	pthread_mutex_lock(&philo->right_fork);
 	print_message(TAKES_FORK, philo);
 	ft_usleep(philo->mind->tt_die, philo);
 	pthread_mutex_lock(&philo->mind->m_end);
 	philo->mind->end_flag = true;
 	pthread_mutex_unlock(&philo->mind->m_end);
-	pthread_mutex_unlock(&philo->left_fork);
+	pthread_mutex_unlock(&philo->right_fork);
 }
 
 static int	eat(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->left_fork);
+	pthread_mutex_lock(&philo->right_fork);
 	print_message(TAKES_FORK, philo);
-	pthread_mutex_lock(philo->right_fork);
+	pthread_mutex_lock(philo->left_fork);
 	print_message(TAKES_FORK, philo);
 	print_message(EATING, philo);
 	ft_usleep(philo->mind->tt_eat, philo);
@@ -57,8 +57,8 @@ static int	eat(t_philo *philo)
 	philo->last_meal_time = get_time();
 	philo->meals_consumed++;
 	pthread_mutex_unlock(&philo->mind->m_meal);
-	pthread_mutex_unlock(philo->right_fork);
-	pthread_mutex_unlock(&philo->left_fork);
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(&philo->right_fork);
 	return (0);
 }
 

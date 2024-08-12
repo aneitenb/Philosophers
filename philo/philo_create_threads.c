@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:53:59 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/11 15:51:25 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:32:42 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	create_threads(t_master *mind)
 			return (PHILOS_ERROR);
 		i++;
 	}
+	mind->start_time = get_time();
 	pthread_mutex_unlock(&mind->m_roulette);
 	i = 0;
 	monitoring(mind);
