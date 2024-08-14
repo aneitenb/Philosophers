@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 08:46:46 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/12 14:52:03 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/14 13:32:34 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	*philo_roulette(void *ptr)
 		singles_fate(philo);
 		return (NULL);
 	}
-	if (philo->id % 2 == 1)
+	if (philo->id % 2 == 1 || philo->id + 1 == philo->mind->philo_nbr)
 	{
 		print_message(THINKING, philo);
 		ft_usleep(philo->mind->tt_eat - 10, philo);

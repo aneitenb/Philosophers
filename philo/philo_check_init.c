@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:54:55 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/12 15:49:02 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/14 13:24:17 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ static const char	*check_valid_input(const char *str)
 	if (str[i] == '+')
 		str++;
 	else if (str[i] == '-')
-		return (error_null("Error: Use positive number input"));
-	if (str[i] < '0' || str[i] > '9' )
-		return (error_null("Error: Use only numbers as input"));
+		return (NULL);
+	if (str[i] < '0' || str[i] > '9')
+		return (NULL);
 	number = str;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
@@ -78,7 +78,9 @@ static const char	*check_valid_input(const char *str)
 		i++;
 	}
 	if (len > 10)
-		return (error_null("Error: Do not input numbers greater than INT_MAX"));
+		return (NULL);
+	if (str[i] != '\0' && (str[i] < '0' || str[i] > '9'))
+		return (NULL);
 	return (number);
 }
 
@@ -96,7 +98,7 @@ static long	ft_atol(const char *str)
 		str++;
 	}
 	if (num > INT_MAX)
-		return (error_str("Error: Do not input numbers greater than INT_MAX"));
+		return (-1);
 	return (num);
 }
 
@@ -119,6 +121,6 @@ int	check_arg(t_master *mind, char **argv)
 		mind->meal_limit = -1;
 	if (mind->philo_nbr == 0 || mind->tt_die == 0 || mind->tt_eat == 0
 		|| mind->tt_sleep == 0 || mind->meal_limit == 0)
-		return (error_str("Error: Inputs cannot be 0"));
+		return (INVALID_ARG);
 	return (0);
 }

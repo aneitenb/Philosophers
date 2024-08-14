@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:54:39 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/11 15:53:29 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/14 13:14:08 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ int	handle_error(int errno, t_master *mind)
 {
 	if (errno == ARG_COUNT)
 		printf("Error: Incorrect number of arguments\n");
+	else if (errno == INVALID_ARG)
+	{
+		printf("Error: Invalid arguments\n");
+	}
 	else if (errno == INIT_ERROR)
 	{
 		if (mind->philo != NULL)
@@ -28,16 +32,4 @@ int	handle_error(int errno, t_master *mind)
 		kill(mind);
 	}
 	return (errno);
-}
-
-int	error_str(char *str)
-{
-	printf("%s\n", str);
-	return (INVALID_ARG);
-}
-
-char	*error_null(char *str)
-{
-	printf("%s\n", str);
-	return (NULL);
 }

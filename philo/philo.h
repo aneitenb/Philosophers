@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:39:53 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/12 15:48:48 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/14 13:14:15 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ struct	s_master
 	t_philo			*philo;
 };
 
-int		error_str(char *str);
-char	*error_null(char *str);
 int		check_arg(t_master *data, char **argv);
 int		handle_error(int errno, t_master *mind);
 int		init_data(t_master *mind);
