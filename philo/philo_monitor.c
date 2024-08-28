@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 14:47:59 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/19 15:11:38 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/28 13:55:47 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,17 @@ static int	monitor_full_philos(t_master *mind, int i)
 	{
 		pthread_mutex_lock(&mind->m_meal);
 		if (mind->philo[i].meals_consumed == mind->meal_limit)
-			mind->full_philos++;
+		{
+			if (mind->philo[i].full == false)
+				mind->full_philos++;
+			mind->philo[i].full = true;
+		}
 		if (mind->full_philos == mind->philo_nbr)
 		{
 			pthread_mutex_unlock(&mind->m_meal);
+			pthread_mutex_lock(&mind->m_end);
+			mind->end_flag = true;
+			pthread_mutex_unlock(&mind->m_end);
 			return (1);
 		}
 		pthread_mutex_unlock(&mind->m_meal);
