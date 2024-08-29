@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:33:04 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/19 17:45:53 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:03:45 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void	print_message(char *str, t_philo *philo)
 		pthread_mutex_unlock(&philo->mind->m_end);
 		return ;
 	}
-	pthread_mutex_unlock(&philo->mind->m_end);
 	pthread_mutex_lock(&philo->mind->m_print);
 	current_time = get_time() - philo->mind->start_time;
 	printf("%u %d %s\n", current_time, philo->id + 1, str);
 	pthread_mutex_unlock(&philo->mind->m_print);
+	pthread_mutex_unlock(&philo->mind->m_end);
 }
 
 size_t	get_time(void)
@@ -45,11 +45,10 @@ void	ft_usleep(unsigned int time, t_philo *philo)
 {
 	long	start;
 
+	(void)philo;
 	start = get_time();
 	while ((get_time() - start) < time)
 	{
-		if (death_or_full(philo))
-			break ;
 		usleep(500);
 	}
 }
