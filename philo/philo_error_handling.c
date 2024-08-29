@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:54:39 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/14 13:14:08 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/29 11:33:19 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	handle_error(int errno, t_master *mind)
 	}
 	else if (errno == PHILOS_ERROR)
 	{
-		printf("Error with threads\n");
 		kill(mind);
+		printf("Error with threads\n");
 	}
 	return (errno);
 }
