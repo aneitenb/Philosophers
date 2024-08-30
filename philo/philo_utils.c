@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:33:04 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/29 16:03:45 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/30 12:16:44 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,10 @@ size_t	get_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void	ft_usleep(unsigned int time, t_philo *philo)
+void	ft_usleep(unsigned int time)
 {
 	long	start;
 
-	(void)philo;
 	start = get_time();
 	while ((get_time() - start) < time)
 	{

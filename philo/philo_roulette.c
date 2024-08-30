@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 08:46:46 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/29 16:20:48 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/30 12:17:17 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	singles_fate(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->right_fork);
 	print_message(TAKES_FORK, philo);
-	ft_usleep(philo->mind->tt_die, philo);
+	ft_usleep(philo->mind->tt_die);
 	pthread_mutex_lock(&philo->mind->m_end);
 	philo->mind->end_flag = true;
 	pthread_mutex_unlock(&philo->mind->m_end);
@@ -56,7 +56,7 @@ static int	eat(t_philo *philo)
 	philo->last_meal_time = get_time();
 	philo->meals_consumed++;
 	pthread_mutex_unlock(&philo->mind->m_meal);
-	ft_usleep(philo->mind->tt_eat, philo);
+	ft_usleep(philo->mind->tt_eat);
 	pthread_mutex_unlock(&philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
 	return (0);
@@ -65,7 +65,7 @@ static int	eat(t_philo *philo)
 static int	philo_sleep(t_philo *philo)
 {
 	print_message(SLEEPING, philo);
-	ft_usleep(philo->mind->tt_sleep, philo);
+	ft_usleep(philo->mind->tt_sleep);
 	return (0);
 }
 
@@ -84,7 +84,7 @@ void	*philo_roulette(void *ptr)
 	if (philo->id % 2 == 1 || philo->id + 1 == philo->mind->philo_nbr)
 	{
 		print_message(THINKING, philo);
-		ft_usleep(philo->mind->tt_eat / 2, philo);
+		ft_usleep(philo->mind->tt_eat / 2);
 	}
 	while (death_or_full(philo) == 0)
 	{

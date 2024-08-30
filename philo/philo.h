@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:39:53 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/19 17:46:00 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/30 12:16:52 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		init_data(t_master *mind);
 int		init_philo(t_master *mind);
 void	*philo_roulette(void *ptr);
 void	print_message(char *str, t_philo *philo);
-void	ft_usleep(unsigned int time, t_philo *philo);
+void	ft_usleep(unsigned int time);
 size_t	get_time(void);
 int		kill(t_master *mind);
 void	monitoring(t_master *mind);
