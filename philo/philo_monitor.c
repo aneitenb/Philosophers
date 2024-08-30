@@ -6,7 +6,7 @@
 /*   By: aneitenb <aneitenb@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 14:47:59 by aneitenb          #+#    #+#             */
-/*   Updated: 2024/08/28 13:55:47 by aneitenb         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:04:08 by aneitenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	monitoring(t_master *mind)
 
 	while (1)
 	{
-		usleep(100);
 		i = 0;
 		while (i < mind->philo_nbr)
 		{
